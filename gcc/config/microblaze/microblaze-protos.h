@@ -51,7 +51,6 @@ extern int microblaze_regno_ok_for_base_p (int, int);
 extern HOST_WIDE_INT microblaze_initial_elimination_offset (int, int);
 extern void microblaze_declare_object (FILE *, const char *, const char *,
    const char *, int);
-extern void microblaze_asm_output_ident (const char *);
 extern int microblaze_legitimate_pic_operand (rtx);
 extern bool microblaze_tls_referenced_p (rtx);
 extern int symbol_mentioned_p (rtx);
