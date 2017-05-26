@@ -743,7 +743,7 @@ do {									\
 #define STRING_ASM_OP			"\t.asciz\t"
 
 #undef TARGET_ASM_OUTPUT_IDENT
-#define TARGET_ASM_OUTPUT_IDENT microblaze_asm_output_ident
+#define TARGET_ASM_OUTPUT_IDENT default_asm_output_ident_directive
 
 /* Default to -G 8 */
 #ifndef MICROBLAZE_DEFAULT_GVALUE

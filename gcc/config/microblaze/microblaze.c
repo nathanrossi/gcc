@@ -3351,30 +3351,6 @@ microblaze_eh_return (rtx op0)
   emit_insn (gen_movsi (gen_rtx_MEM (Pmode, stack_pointer_rtx), op0));
 }
 
-/* Queue an .ident string in the queue of top-level asm statements.
-   If the string size is below the threshold, put it into .sdata2.
-   If the front-end is done, we must be being called from toplev.c.
-   In that case, do nothing.  */
-void 
-microblaze_asm_output_ident (const char *string)
-{
-  const char *section_asm_op;
-  int size;
-  char *buf;
-
-  if (symtab->state != PARSING)
-    return;
-
-  size = strlen (string) + 1;
-  if (size <= microblaze_section_threshold)
-    section_asm_op = SDATA2_SECTION_ASM_OP;
-  else
-    section_asm_op = READONLY_DATA_SECTION_ASM_OP;
-
-  buf = ACONCAT ((section_asm_op, "\n\t.ascii \"", string, "\\0\"\n", NULL));
-  symtab->finalize_toplevel_asm (build_string (strlen (buf), buf));
-}
-
 static void
 microblaze_elf_asm_init_sections (void)
 {
