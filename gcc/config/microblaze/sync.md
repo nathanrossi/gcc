@@ -18,9 +18,10 @@
 ;; <http://www.gnu.org/licenses/>.
 
 (define_insn "atomic_compare_and_swapsi"
-  [(match_operand:SI 0 "register_operand" "=&d")	;; bool output
-   (match_operand:SI 1 "register_operand" "=&d")	;; val output
-   (match_operand:SI 2 "nonimmediate_operand" "+Q")	;; memory
+  [(set (match_operand:SI 0 "register_operand" "=&d")	;; bool output
+     (match_operand:SI 2 "nonimmediate_operand" "+Q"))	;; memory
+   (set (match_operand:SI 1 "register_operand" "=&d")	;; val output
+     (match_dup 2))
    (match_operand:SI 3 "register_operand" "d")		;; expected value
    (match_operand:SI 4 "register_operand" "d")		;; desired value
    (match_operand:SI 5 "const_int_operand" "")		;; is_weak
@@ -29,15 +30,16 @@
    (clobber (match_scratch:SI 8 "=&d"))]
   ""
   {
-    output_asm_insn ("addc \tr0,r0,r0", operands);
+    output_asm_insn ("add  \t%0,r0,r0", operands);
     output_asm_insn ("lwx  \t%1,%y2,r0", operands);
     output_asm_insn ("addic\t%8,r0,0", operands);
     output_asm_insn ("bnei \t%8,.-8", operands);
-    output_asm_insn ("cmp  \t%0,%1,%3", operands);
-    output_asm_insn ("bnei \t%0,.+16", operands);
+    output_asm_insn ("cmp  \t%8,%1,%3", operands);
+    output_asm_insn ("bnei \t%8,.+20", operands);
     output_asm_insn ("swx  \t%4,%y2,r0", operands);
     output_asm_insn ("addic\t%8,r0,0", operands);
     output_asm_insn ("bnei \t%8,.-28", operands);
+    output_asm_insn ("addi \t%0,r0,1", operands);
     return "";
   }
 )
