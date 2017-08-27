@@ -2482,25 +2482,8 @@
 			 (match_operand:SI 2 "immediate_operand" "I")
 			 (match_operand:SI 3 "immediate_operand" "I")))]
 "TARGET_HAS_BITFIELD"
-"
-{
-  unsigned HOST_WIDE_INT len = UINTVAL (operands[2]);
-  unsigned HOST_WIDE_INT pos = UINTVAL (operands[3]);
-
-  if ((len == 0) || (pos + len > 32) )
-    FAIL;
-
-  ;;if (!register_operand (operands[1], VOIDmode))
-  ;;  FAIL;
-  if (operands[0] == operands[1])
-  FAIL;
-  if (GET_CODE (operands[1]) == ASHIFT)
-  FAIL;
-;;  operands[2] = GEN_INT(INTVAL(operands[2])+1 );
- emit_insn (gen_extv_32 (operands[0], operands[1],
-			  operands[2], operands[3]));
-  DONE;
-}")
+""
+)
 
 (define_insn "extv_32"
   [(set (match_operand:SI 0 "register_operand" "=r")
@@ -2518,22 +2501,9 @@
 			 (match_operand:SI 1 "immediate_operand" "I")
 			 (match_operand:SI 2 "immediate_operand" "I"))
 	(match_operand:SI 3 "register_operand" "r"))]
- "TARGET_HAS_BITFIELD"
-  "
-{
-  unsigned HOST_WIDE_INT len = UINTVAL (operands[1]);
-  unsigned HOST_WIDE_INT pos = UINTVAL (operands[2]);
-
-  if (len <= 0 || pos + len > 32)
-    FAIL;
-
-  ;;if (!register_operand (operands[0], VOIDmode))
-  ;;  FAIL;
-
-  emit_insn (gen_insv_32 (operands[0], operands[1],
-			  operands[2], operands[3]));
-  DONE;
-}")
+"TARGET_HAS_BITFIELD"
+""
+)
 
 (define_insn "insv_32"
   [(set (zero_extract:SI (match_operand:SI 0 "register_operand" "+r")
