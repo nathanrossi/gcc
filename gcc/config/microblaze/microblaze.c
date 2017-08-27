@@ -2497,11 +2497,9 @@ print_operand (FILE * file, rtx op, int letter)
 	    REAL_VALUE_TO_TARGET_DOUBLE (*CONST_DOUBLE_REAL_VALUE (op), val);
 	  else
 	    {
-	      REAL_VALUE_TYPE rv;
-	      REAL_VALUE_FROM_CONST_DOUBLE (rv, op);
-	      REAL_VALUE_TO_TARGET_DOUBLE (rv, l);
-	      val[1] = l[WORDS_BIG_ENDIAN == 0];
-	      val[0] = l[WORDS_BIG_ENDIAN != 0];
+              REAL_VALUE_TO_TARGET_DOUBLE (*CONST_DOUBLE_REAL_VALUE (op), l);
+              val[1] = l[WORDS_BIG_ENDIAN == 0];
+              val[0] = l[WORDS_BIG_ENDIAN != 0];
 	    }
 	}
       else if (code == CONST_INT)
@@ -3231,7 +3229,7 @@ microblaze_expand_epilogue (void)
   if (crtl->calls_eh_return)
     emit_insn (gen_addsi3 (stack_pointer_rtx,
                            stack_pointer_rtx,
-                           gen_rtx_raw_REG (SImode,
+                           gen_raw_REG (SImode,
                                             MB_EH_STACKADJ_REGNUM)));
 
   emit_jump_insn (gen_return_internal (gen_rtx_REG (Pmode, GP_REG_FIRST +
