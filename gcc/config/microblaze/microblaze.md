@@ -2476,7 +2476,7 @@
   DONE;
 }")
 
-(define_expand "extvsi"
+(define_expand "extzvsi"
   [(set (match_operand:SI 0 "register_operand" "r")
 	(zero_extract:SI (match_operand:SI 1 "register_operand" "r")
 			 (match_operand:SI 2 "immediate_operand" "I")
@@ -2485,7 +2485,7 @@
 ""
 )
 
-(define_insn "extv_32"
+(define_insn "extzv_32"
   [(set (match_operand:SI 0 "register_operand" "=r")
 	(zero_extract:SI (match_operand:SI 1 "register_operand" "r")
 			 (match_operand:SI 2 "immediate_operand" "I")
