@@ -400,7 +400,7 @@ merge_include_chains (const char *sysroot, cpp_reader *pfile, int verbose)
     {
        struct cpp_dir *p;
 
-       for (p = heads[QUOTE]; p; p = p->next)
+       for (p = heads[INC_QUOTE]; p; p = p->next)
          {
           if ((!strncmp (p->name, "/usr/include", 12))
               || (!strncmp (p->name, "/usr/local/include", 18))
