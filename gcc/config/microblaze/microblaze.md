@@ -529,7 +529,7 @@
 (define_insn "subdi3"
   [(set (match_operand:DI 0 "register_operand" "=&d")
 	(minus:DI (match_operand:DI 1 "register_operand" "d")
-		  (match_operand:DI 2 "arith_operand32" "d")))]
+		  (match_operand:DI 2 "register_operand" "d")))]
   ""
   "rsub\t%L0,%L2,%L1\;rsubc\t%M0,%M2,%M1"
   [(set_attr "type"	"darith")
